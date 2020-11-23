@@ -331,7 +331,7 @@ export async function getDmgData({ actor, item, spellLevel = null }) {
 
 			rollData.parts[0][0] = newDmgPart[0];
 		} else if (spellLevel && itemData.scaling.mode === 'level' && itemData.scaling.formula) {
-			let newDmgPart = [];
+			let newDmgPart = [rollData.parts[0][0]];
 			item._scaleSpellDamage(newDmgPart, itemData.level, spellLevel, itemData.scaling.formula);
 			if (newDmgPart.length > 0) {
 				newDmgPart.push('upcast dice');
