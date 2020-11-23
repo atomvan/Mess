@@ -327,12 +327,12 @@ export async function getDmgData({ actor, item, spellLevel = null }) {
 		if (itemData.scaling.mode === 'cantrip') {
 			let newDmgPart = [rollData.parts[0][0]];
 			const lvl = actor.data.type === 'character' ? actorData.details.level : actorData.details.spellLevel;
-			item._scaleCantripDamage(newDmgPart, itemData.scaling.formula, lvl);
+			item._scaleCantripDamage(newDmgPart, itemData.scaling.formula, lvl, rollData);
 
 			rollData.parts[0][0] = newDmgPart[0];
 		} else if (spellLevel && itemData.scaling.mode === 'level' && itemData.scaling.formula) {
-			let newDmgPart = [];
-			item._scaleSpellDamage(newDmgPart, itemData.level, spellLevel, itemData.scaling.formula);
+			let newDmgPart = [rollData.parts[0][0]];
+			item._scaleSpellDamage(newDmgPart, itemData.level, spellLevel, itemData.scaling.formula, rollData);
 			if (newDmgPart.length > 0) {
 				newDmgPart.push('upcast dice');
 				rollData.parts.push(newDmgPart);
